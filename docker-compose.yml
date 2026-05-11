@@ -1,0 +1,30 @@
+services:
+  app:
+    image: ghcr.io/hassanhafiz44/cicd:latest
+    container_name: laravel_app
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8080:8000" # Exposes app to port 8080 on the Pi
+    depends_on:
+      - mysql
+      - redis
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+
+volumes:
+  mysql_data:
