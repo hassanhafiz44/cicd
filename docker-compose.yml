@@ -1,6 +1,8 @@
 services:
   app:
-    image: ghcr.io/hassanhafiz44/cicd:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: laravel_app
     restart: always
     ports:
